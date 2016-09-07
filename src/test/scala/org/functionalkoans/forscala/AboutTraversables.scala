@@ -465,27 +465,6 @@ class AboutTraversables extends KoanSuite with ShouldMatchers {
     intList.min should be(1)
   }
 
-  koan( """You would choose foldLeft/reduceLeft or foldRight/reduceRight based on your mathematical goal.
-          | One other reason for deciding is performance.  foldLeft is more performant since it uses
-          | tail recursion and is optimized. This koan will either work or you will receive a
-          | StackOverflowError. If you do receive a StackOverflowError, try reducing the MAX_SIZE value.""") {
-
-    val MAX_SIZE = 10000
-    val reduceLeftStartTime = new java.util.Date
-    (1 to MAX_SIZE) reduceLeft (_ + _)
-    val reduceLeftEndTime = new java.util.Date
-
-
-    val reduceRightStartTime = new java.util.Date
-    (1 to MAX_SIZE) reduceRight (_ + _)
-    val reduceRightEndTime = new java.util.Date
-
-    val totalReduceLeftTime = reduceLeftEndTime.getTime - reduceLeftStartTime.getTime
-    val totalReduceRightTime = reduceRightEndTime.getTime - reduceRightStartTime.getTime
-
-    (totalReduceRightTime > totalReduceLeftTime) should be(true)
-  }
-
   koan( """`transpose` will take a traversable of traversables and group them by their position in
           |  it's own traversable.  E.g. ((x1, x2),(y1, y2)).transpose = (x1, y1), (x2, y2).
           |  or ((x1, x2, x3),(y1, y2, y3),(z1, z2, z3)).transpose = ((x1, y1, z1), (x2, y2, z2), (x3, y3, z3))""") {
